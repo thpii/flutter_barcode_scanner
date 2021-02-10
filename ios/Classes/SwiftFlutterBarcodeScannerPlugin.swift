@@ -192,7 +192,6 @@ class BarcodeScannerViewController: UIViewController {
     /// Create and return flash button
     private lazy var flashIcon : UIButton! = {
         let flashButton = UIButton()
-        flashButton.setTitle("Flash",for:.normal)
         flashButton.translatesAutoresizingMaskIntoConstraints=false
         
         flashButton.setImage(UIImage(named: "ic_flash_off", in: Bundle(identifier: "org.cocoapods.flutter-barcode-scanner"), compatibleWith: nil),for:.normal)
