@@ -172,6 +172,19 @@ class BarcodeScannerViewController: UIViewController {
     private var isOrientationPortrait = true
     var screenHeight:CGFloat = 0
     let captureMetadataOutput = AVCaptureMetadataOutput()
+
+    static let resourceBundle: Bundle = {
+        let myBundle = Bundle(for: BarcodeScannerViewController.self)
+
+        guard let resourceBundleURL = myBundle.url(
+            forResource: "FlutterBarcodeScanner", withExtension: "bundle")
+            else { fatalError("FlutterBarcodeScanner.bundle not found!") }
+
+        guard let resourceBundle = Bundle(url: resourceBundleURL)
+            else { fatalError("Cannot access FlutterBarcodeScanner.bundle!") }
+
+        return resourceBundle
+    }()
     
     private lazy var xCor: CGFloat! = {
         return self.isOrientationPortrait ? (screenSize.width - (screenSize.width*0.8))/2 :
@@ -194,7 +207,7 @@ class BarcodeScannerViewController: UIViewController {
         let flashButton = UIButton()
         flashButton.translatesAutoresizingMaskIntoConstraints=false
         
-        flashButton.setImage(UIImage(named: "ic_flash_off", in: Bundle(identifier: "org.cocoapods.flutter-barcode-scanner"), compatibleWith: nil),for:.normal)
+        flashButton.setImage(UIImage(named: "ic_flash_off.png", in: resourceBundle, compatibleWith: nil),for:.normal)
         
         flashButton.addTarget(self, action: #selector(BarcodeScannerViewController.flashButtonClicked), for: .touchUpInside)
         return flashButton
@@ -365,10 +378,10 @@ class BarcodeScannerViewController: UIViewController {
     /// Flash button click event listener
     @IBAction private func flashButtonClicked() {
         if #available(iOS 10.0, *) {
-            if flashIcon.image(for: .normal) == UIImage(named: "ic_flash_off", in: Bundle(identifier: "org.cocoapods.flutter-barcode-scanner"), compatibleWith: nil){
-                flashIcon.setImage(UIImage(named: "ic_flash_on", in: Bundle(identifier: "org.cocoapods.flutter-barcode-scanner"), compatibleWith: nil),for:.normal)
+            if flashIcon.image(for: .normal) == UIImage(named: "ic_flash_off.png", in: resourceBundle, compatibleWith: nil){
+                flashIcon.setImage(UIImage(named: "ic_flash_on.png", in: resourceBundle, compatibleWith: nil),for:.normal)
             }else{
-                flashIcon.setImage(UIImage(named: "ic_flash_off", in: Bundle(identifier: "org.cocoapods.flutter-barcode-scanner"), compatibleWith: nil),for:.normal)
+                flashIcon.setImage(UIImage(named: "ic_flash_off.png", in: resourceBundle, compatibleWith: nil),for:.normal)
             }
             toggleFlash()
         } else {
